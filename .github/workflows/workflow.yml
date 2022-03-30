@@ -19,8 +19,6 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run API Tests
-        id: run-newman
-        uses: 
         with:
           collection: collection.json
           reporters: htmlextra
