@@ -23,7 +23,7 @@ jobs:
         with:
           collection: collection.json
           reporters: htmlextra
-          environement: https://www.postman.com/flight-participant-8024778/workspace/wild-code-school/environment/19501748-55c54bd6-262a-49f5-b22c-3e3821d7dca6
+          environment: environment.json
 
       - name: Installation de newman
         run: npm install -g newman
