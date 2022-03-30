@@ -1,6 +1,6 @@
 # This is a basic workflow that is manually triggered
 
-name: Manual workflow
+name: Execution de test  
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -17,16 +17,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+ 
+      - name: Install dependencies
+        run: npm install --global newman newman-reporter-htmlextra
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master 
         with:
           collection: collection.json
-          # reporters: htmlextra
           environment: environment.json
 
-      # - name: Installation de newman
-      #   run: npm install -g newman
-
-      # - name: Installation de newman reporter htmlextra
-      #   run: npm install -g newman-reporter-htmlextra
+      - name: Publish JUnit reports
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: API github Project 1  # Name of the check run which will be created
+          path: newman/*.xml # Path to test results
+          reporter: java-junit
+ 
+      - name: Publier le rapport HTML
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-report-${{ github.run_id }}
+          path: newman/*.html
