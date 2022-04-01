@@ -22,13 +22,11 @@ jobs:
         run: npm install --global newman newman-reporter-htmlextra
 
       - name: Run API Tests
-        uses: matt-ball/newman-action@master 
-        with:
-          collection: collection.json
+        run : newman run collection.json -r cli,htmlextra
 
       - name: Publier le rapport HTML
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: test-report-${{ github.run_id }}
-          path: newman-reporter-htmlextra
+          path: newman/*.html
