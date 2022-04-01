@@ -25,16 +25,7 @@ jobs:
         uses: matt-ball/newman-action@master 
         with:
           collection: collection.json
-          environment: environment.json
 
-      - name: Publish JUnit reports
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: API github Project 1  # Name of the check run which will be created
-          path: newman/*.xml # Path to test results
-          reporter: java-junit
- 
       - name: Publier le rapport HTML
         uses: actions/upload-artifact@v3
         if: always()
